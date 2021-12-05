@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>hajin</title>
+        <script src="https://unpkg.com/marked@0.3.6"></script>
+        <script src="https://unpkg.com/lodash@4.16.0"></script>
+        <style>
+
+            body{
+                display:flex;
+                flex-direction: column;
+                background-color: rgb(175, 113, 233);
+            }
+
+            .container {
+                cursor: pointer;
+                margin-bottom: 10px;
+                transform: rotate(0);
+                transition: transform .3s linear;
+            }
+
+            .container:hover {
+                
+                transform: rotate(-80deg);
+              
+            }
+
+            .wrapper {
+                display: flex;
+                justify-content: left;
+                background-color: rgb(203, 240, 37);
+                border:1px solid pink; 
+            }
+
+            .wrapper_middle_two {
+                width:100%;
+                height:800px;
+                background-color: olive;
+                text-align: center;
+            }
+
+            .wrapper_middle_two ::-webkit-scrollbar {
+                width:10px;
+                background-color: slategray;
+            }
+
+            .wrapper_middle_two > .profile {
+                font-size: 35px;
+                background-color: white;
+                opacity:85%;
+                width:100%;
+                height:100px;
+                font-weight: bold;
+            }
+
+            .wrapper_middle {
+                width:100%;
+                height:800px;
+                background-color: rgb(235, 205, 37);
+                text-align: center;
+            }
+
+            .wrapper_middle_three {
+                width:100%;
+                height:1400px;
+                background-color: rgb(37, 179, 235);
+                text-align: center;
+            }
+
+            .wrapper_middle_three > .profile {
+                font-size: 35px;
+                background-color: white;
+                opacity:85%;
+                width:100%;
+                height:100px;
+                font-weight: bold;
+            }
+
+            .wrapper_middle > .profile {
+                font-size: 35px;
+                background-color: white;
+                opacity:85%;
+                width:100%;
+                height:100px;
+                font-weight: bold;
+            }
+
+            .wrapper_bottom {
+                width:100%;
+                height:1200px;
+                /* background-color: rgb(212, 37, 235); */
+                text-align: center; 
+            }
+
+            .wrapper_bottom > .profile {
+                font-size: 35px;
+                background-color: white;
+                opacity:85%;
+                width:100%;
+                height:100px;
+                font-weight: bold;
+            }
+
+            .container {
+                width:400px;
+                height:400px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: rgb(82, 180, 148);
+                border:1px solid pink;
+            }
+
+            .inner{
+                width:200px;
+                height:200px;
+                background-color: aquamarine;
+                border:1px solid pink;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .title {
+                width:550px;
+                height:70px;
+                position:absolute;
+                top:50%;
+                left:35%;
+                background-color: white;
+                opacity:85%;
+                z-index:3;
+                text-align: center;
+                font-size: 45px;
+                border:8px solid pink;
+            }
+
+            span {
+                vertical-align: middle;
+                /* border: 1px solid salmon; */
+                font-weight: bold;
+                color:slategray;
+            }
+
+
+            .inner_left {
+                float:left;
+                width:50%;
+                height:800px;
+                background-color: orange;
+            }
+
+            .inner_right {
+                float:right;
+                width:50%;
+                height:800px;
+                background-color: olivedrab;
+            }
+
+            table,tr,td,th {
+                width:100%;
+                height:100%;
+                border:3px solid olive; 
+            }
+
+            #myUl {
+                width:80%;
+                margin:50px auto;
+                height:400px;
+                text-decoration: none;
+                list-style: none;
+                overflow-y: scroll;
+                border: 1px solid salmon;
+            }
+
+            li {
+                height:80px;
+                font-size:30px;
+            }
+
+            li:hover {
+                background-color: rgb(243, 223, 136);
+            }
+
+            #inputtext {
+                width:200px;
+                height:30px;
+            }
+
+            .loader1{
+                position: relative;
+                height: 80px;
+                width: 80px;
+                border-radius: 80px;
+                border: 3px solid  rgba(255,255,255, .7);
+
+                top: 28%;
+                top: -webkit-calc(50% - 43px);
+                top: calc(50% - 43px);
+                left: 35%;
+                left: -webkit-calc(50% - 43px);
+                left: calc(50% - 43px);
+
+                -webkit-transform-origin: 50% 50%;
+                    transform-origin: 50% 50%;
+                -webkit-animation: loader1 3s linear infinite;
+                    animation: loader1 3s linear infinite;
+            }
+
+            .loader1:after{
+            content: "";
+            position: absolute;
+            top: -5px;
+            left: 20px;
+            width: 11px;
+            height: 11px;
+            border-radius: 10px;
+            background-color: #fff;
+            }
+
+            @-webkit-keyframes loader1{
+                0%{-webkit-transform:rotate(0deg);}
+                100%{-webkit-transform:rotate(360deg);}
+            }
+
+            @keyframes loader1{
+                0%{transform:rotate(0deg);}
+                100%{transform:rotate(360deg);}
+            }
+
+            #map {
+                background-color: cadetblue;
+                width:1000px;
+                height:1000px;
+                margin: 20px auto;
+            }
+
+            ul li:nth-child(odd) {
+                background: #d8d5d5;
+            }
+
+            ul li:nth-child(even) {
+                background-color: rgb(241, 237, 237);
+            }
+
+            .slide_list {}
+            .slide_wrap { position: relative; width: 400px; margin:150px auto; padding-bottom: 30px; }
+            .slide_box { width: 100%; margin: auto; overflow-x: hidden; }
+            .slide_content { display: table; float: left; width: 400px; height: 400px;}  
+
+            .slide01 {
+                background-color: rgb(82, 180, 148);
+            }
+
+            .slide02 {
+                background-color: rosybrown;
+            }
+
+            .slide03 {
+                background-color: seagreen;
+            }
+
+            .slide04 {
+                background-color: steelblue;
+            }
+
+            .slide05 {
+                background-color: tomato;
+            }
+        </style>
+    </head>
+    <body onload="init()">
+        <span class="title">HAJIN_TITLE</span>
+        <div class="wrapper">
+            <div class="container">
+                <a href="#">
+                    <div class="inner">
+                        <span>Hajin</span>
+                    </div>
+                </a>
+            </div>
+            <div class="container">
+                <div class="inner">
+                    <span>Profile</span>
+                </div>
+            </div>
+            <div class="container">
+                <div class="inner">
+                    <span>To Do List</span>
+                </div>
+            </div>
+            <div class="container">
+                <div class="inner">
+                    <span>Works</span>
+                </div>
+            </div>
+            <div class="container">
+                <div class="inner">
+                    <span>Contact</span>
+                </div>
+            </div>
+        </div>
+        <div class="wrapper">
+            <div class="container">
+                <div class="inner">
+                    <span>home</span>
+                </div>
+            </div>
+            <div class="container">
+                <div class="inner">
+                    <span>home</span>
+                </div>
+            </div>
+            <div class="container">
+                <div class="inner">
+                    <span>home</span>
+                </div>
+            </div>
+            <div class="container">
+                <div class="inner">
+                    <span>ome</span>
+                </div>
+            </div>
+            <div class="container">
+                <div class="inner">
+                    <span>home</span>
+                </div>
+            </div>
+        </div>
+        <div class="wrapper">
+            <div class="container">
+                <div class="inner">
+                    <span>home</span>
+                </div>
+            </div>
+            <div class="container">
+                <div class="inner">
+                    <span>home</span>
+                </div>
+            </div>
+            <div class="container">
+                <div class="inner">
+                    <span>home</span>
+                </div>
+            </div>
+            <div class="container">
+                <div class="inner">
+                    <span>home</span>
+                </div>
+            </div>
+            <div class="container">
+                <div class="inner">
+                    <span>home</span>
+                </div>
+            </div>
+        </div>
+        <div class="wrapper_middle">
+            <div class="profile">Profile__♥</div>
+            <div class="inner_left">
+                <div class="slide_wrap">
+                    <div class="slide_box">
+                    <div class="slide_list clearfix">
+                    <div class="slide_content slide01">
+                    <p>HAJIN</p>
+                    </div>
+                    <div class="slide_content slide02">
+                    <p>2</p>
+                    </div>
+                    <div class="slide_content slide03">
+                    <p>3</p>
+                    </div>
+                    <div class="slide_content slide04">
+                    <p>4</p>
+                    </div>
+                    <div class="slide_content slide05">
+                    <p>5</p>
+                    </div>
+                    </div>
+                    <!-- // .slide_list -->
+                    </div>
+                    <!-- // .slide_box -->
+                    <div class="slide_btn_box">
+                    <button type="button" class="slide_btn_prev">Prev</button>
+                    <button type="button" class="slide_btn_next">Next</button>
+                    </div>
+                    <!-- // .slide_btn_box -->
+                    <ul class="slide_pagination"></ul>
+                    <!-- // .slide_pagination -->
+                    </div>
+                    <!-- // .slide_wrap -->
+            </div>
+            <div class="inner_right">
+                <table>
+                    <tr><th></th><th></th><th></th><th></th></tr>
+                    <tr><td></td><td></td><td></td><td></td></tr>
+                    <tr><td></td><td></td><td></td><td></td></tr>
+                    <tr><td></td><td></td><td></td><td></td></tr>
+                    <tr></tr>
+                </table>
+            </div>
+        </div>
+        <div class="wrapper_middle_two">
+            <div class="profile">To Do List__♥</div>
+            <ul id="myUl">
+                <li><input type="checkbox"   name="userList">aaaa<span class="delete" onclick="deleteElement()"><button>delete</button></span></li>
+                <li><input type="checkbox"   name="userList">contents<span class="delete" onclick="deleteElement()"><button>delete</button></span></li>
+                <li><input type="checkbox"   name="userList">ccc<span class="delete" onclick="deleteElement()"><button>delete</button></span></li>
+                <li><input type="checkbox"   name="userList">ddd<span class="delete" onclick="deleteElement()"><button>delete</button></span></li>
+                <li><input type="checkbox"   name="userList">eee<span class="delete" onclick="deleteElement()"><button>delete</button></span></li>
+            </ul>
+            <div class="input">
+                <input id="inputtext" type="text" placeholder="write To do list...">
+                <div id="write" onclick="newElement()"><button>write</button></div>
+            </div>
+        </div>
+        <div class="wrapper_middle_three">
+            <div class="profile">Works_♥</div>
+            <div class="wrapper">
+                <div class="container"> 
+                    <div class="box">
+                        <div class="loader1"></div>
+                        <p>works_01</p>
+                    </div>
+                </div>
+                <div class="container"> 
+                    <div class="box">
+                        <div class="loader1"></div>
+                        <p>works_01</p>
+                    </div>
+                </div>
+                <div class="container"> 
+                    <div class="box">
+                        <div class="loader1"></div>
+                        <p>works_01</p>
+                    </div>
+                </div>
+                <div class="container"> 
+                    <div class="box">
+                        <div class="loader1"></div>
+                        <p>works_01</p>
+                    </div>
+                </div>
+                <div class="container"> 
+                    <div class="box">
+                        <div class="loader1"></div>
+                        <p>works_01</p>
+                    </div>
+                </div>
+            </div>
+            <div class="wrapper">
+                <div class="container"> 
+                    <div class="box">
+                        <div class="loader1"></div>
+                        <p>works_01</p>
+                    </div>
+                </div>
+                <div class="container"> 
+                    <div class="box">
+                        <div class="loader1"></div>
+                        <p>works_01</p>
+                    </div>
+                </div>
+                <div class="container"> 
+                    <div class="box">
+                        <div class="loader1"></div>
+                        <p>works_01</p>
+                    </div>
+                </div>
+                <div class="container"> 
+                    <div class="box">
+                        <div class="loader1"></div>
+                        <p>works_01</p>
+                    </div>
+                </div>
+                <div class="container"> 
+                    <div class="box">
+                        <div class="loader1"></div>
+                        <p>works_01</p>
+                    </div>
+                </div>
+            </div>
+            <div class="wrapper">
+                <div class="container"> 
+                    <div class="box">
+                        <div class="loader1"></div>
+                        <p>works_01</p>
+                    </div>
+                </div>
+                <div class="container"> 
+                    <div class="box">
+                        <div class="loader1"></div>
+                        <p>works_01</p>
+                    </div>
+                </div>
+                <div class="container"> 
+                    <div class="box">
+                        <div class="loader1"></div>
+                        <p>works_01</p>
+                    </div>
+                </div>
+                <div class="container"> 
+                    <div class="box">
+                        <div class="loader1"></div>
+                        <p>works_01</p>
+                    </div>
+                </div>
+                <div class="container"> 
+                    <div class="box">
+                        <div class="loader1"></div>
+                        <p>works_01</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="wrapper_bottom">
+            <div class="profile">Contact_♥</div>
+            <div id="map">
+                MAP
+            </div>
+        </div>
+        <script>
+            // let box = document.getElementsByTagName("div");
+            // for(let i = 0; i < box.length; i++){
+            //     let littlebox = document.getElementsByTagName("div")[i];
+            //     littlebox.addEventListener("mouseout", function(){
+            //         alert();
+            //         littlebox.style.transform = "rotate(0)";
+            //     })
+            // }
+            // fetch("https://jsonplaceholder.typicode.com/posts/1")
+            // .then((response) => response.json())
+            // .then((data) => console.log(data));
+            // let checkbox = $("input:checkbox[name=userList]:checked").length;
+            
+
+            function newElement() {
+                var li = document.createElement("li");
+                li.innerHTML = "<input type='checkbox'>";
+                var inputValue = document.getElementById("inputtext").value;
+                var t = document.createTextNode(inputValue);
+                li.appendChild(t);
+                if (inputValue === '') {
+                    alert("You must write something!");
+                } else {
+                    document.getElementById("myUl").appendChild(li);
+                }
+            }
+
+
+            // function deleteElement() {
+            //     let del = document.getElementsByClassName("delete");
+            //     for(let i = 0; i < del.length; i++){
+            //         del[i].parentElement.removeChild;
+            //     }
+            // }     
+                
+                // alert(del);
+            
+
+            // var close = document.getElementsByClassName("close");
+            // var i;
+            // close.onclick = function() {
+            // let checkbox = ("input:checkbox[name=userList]:checked");
+            // console.log(checkbox);
+            //     checkbox.each(function(i) {
+            //         var tr = checkbox.parent().parent().eq(i);
+            //         tr.remove();
+            //     })
+            // }
+            
+            // fetch("https://jsonplaceholder.typicode.com/posts", {
+            //     method : "POST",
+            //     headers : {
+            //         "Content-Type" : "application/json",
+            //     },
+            //     body:JSON.stringify({
+            //         title:"Test",
+            //         body:"I am testing!",
+            //         userId:1,
+            //     }),
+            // }).then((response) => console.log(response));
+
+            const slideList = document.querySelector('.slide_list'); // Slide parent dom
+            const slideContents = document.querySelectorAll('.slide_content'); // each slide dom
+            const slideBtnNext = document.querySelector('.slide_btn_next'); // next button
+            const slideBtnPrev = document.querySelector('.slide_btn_prev'); // prev button
+            const pagination = document.querySelector('.slide_pagination');
+            const slideLen = slideContents.length; // slide length
+            const slideWidth = 400; // slide width
+            const slideSpeed = 300; // slide speed
+            slideList.style.width = slideWidth * (slideLen) + "px";
+            let curIndex = 0; // current slide index (except copied slide)
+            /** Next Button Event */
+            slideBtnNext.addEventListener('click', function() {
+            if (curIndex <= slideLen - 1) {
+            slideList.style.transition = slideSpeed + "ms";
+            slideList.style.transform = "translate3d(-" + (slideWidth * (curIndex + 1)) + "px, 0px, 0px)";
+            }
+            curSlide = slideContents[++curIndex];
+            });
+
+        </script>
+    </body>
+</html>
